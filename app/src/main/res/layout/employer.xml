@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="top"
+        android:background="#EFB56E">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:text="नियोक्ता का स्वागत है"
+        android:gravity="center"
+        android:textColor="#FBFDFD"
+        android:textSize="30sp"
+        android:background="@color/colorPrimaryDark"/>
+    <EditText
+        android:id="@+id/editTextTextPersonName2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:layout_marginTop="20sp"
+        android:padding="10dp"
+        android:background="@drawable/rounded_edittext"
+        android:drawableStart="@drawable/ic_action_account"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="नाम"
+        android:drawableLeft="@drawable/ic_action_account" />
+    <EditText
+        android:id="@+id/editTextPhone2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:layout_marginTop="10sp"
+        android:padding="10dp"
+        android:background="@drawable/rounded_edittext"
+        android:drawableStart="@drawable/ic_phone"
+        android:ems="10"
+        android:inputType="phone"
+        android:hint="अपना मोबाइल नंबर डालें"
+        android:drawableLeft="@drawable/ic_phone" />
+    <EditText
+        android:id="@+id/editTextAddress2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:layout_marginTop="10sp"
+        android:padding="10dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:hint="घर का पता"/>
+
+        <View
+        android:layout_width="250sp"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20sp"
+        android:background="#0F1010"/>
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30sp"
+            android:background="@drawable/rounded_button"
+            android:text="रजिस्टर करें"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

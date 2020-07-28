@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#848385</color>
+    <color name="colorPrimaryDark">#0B5C9C</color>
+    <color name="colorAccent">#15EAD6</color>
+    <color name ="HRMcolor">#0E0E0E</color>
+    <color name="backgroundcolor">#FF4A5D6C</color>
+    <color name="divider">#FF56545A</color>
+</resources>
