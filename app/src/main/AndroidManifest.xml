@@ -20,8 +20,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ProfileActivity"/>
         <activity android:name=".VerifyPhoneActivity"/>
-        <activity android:name=".RegistrationActivity"/>
-        <activity android:name=".MainActivity1"/>
+        <activity android:name=".EmployeeRegistrationActivity"/>
         <activity android:name=".TradeSelector"/>
         <activity android:name=".EmployerRegistration"/>
         <service
@@ -43,7 +42,7 @@
         </service>
         <activity android:name=".EmployerWorkHistory"/>
         <activity android:name=".Employer_requirement"/>
-        <activity android:name=".Employer_requirement_send"/>
+        <activity android:name=".EmployerRequirementHelper"/>
         <activity android:name=".ImagePickerActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -1,12 +1,10 @@
 package com.example.android.hrm;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,7 +50,7 @@ public class EmployerRegistration extends AppCompatActivity {
                     FirebaseDatabase db=FirebaseDatabase.getInstance();
                     DatabaseReference databaseReference;
                     databaseReference =db.getReference("Employer");
-                    Employer employer = new Employer(name,phone,adr);
+                    EmployerRegistrationHelper employer = new EmployerRegistrationHelper(name,phone,adr);
                     FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
                     assert user != null;
                     String userid = user.getUid();

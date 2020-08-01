@@ -1,24 +1,14 @@
 package com.example.android.hrm;
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.android.hrm.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,9 +17,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 public class EmployerWorkHistory extends AppCompatActivity {
     ProgressBar s1;
@@ -56,7 +43,7 @@ public class EmployerWorkHistory extends AppCompatActivity {
                     int t=1;
                     final LinearLayout rl = findViewById(R.id.linear_layout);
                     for (DataSnapshot data : snapshot.getChildren()) {
-                        Employer_requirement_send user = data.getValue(Employer_requirement_send.class);
+                        EmployerRequirementHelper user = data.getValue(EmployerRequirementHelper.class);
                         tv[k] = new TextView(getApplicationContext());
                         assert user != null;
                         tv[k].setText((t++)+".\nकाम: " + user.getJob() + "\nविवरण: " + user.getJob_desp() + "\nश्रमिकों की संख्या: " + user.getNlab() + "\nदिनों की संख्या: " + user.getNdays());

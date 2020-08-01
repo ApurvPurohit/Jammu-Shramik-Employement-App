@@ -1,6 +1,5 @@
 package com.example.android.hrm;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -151,7 +149,7 @@ public class Employer_requirement extends AppCompatActivity {
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         assert user != null;
         String userid=user.getUid();
-        Employer_requirement_send helperClass = new Employer_requirement_send(no_days,no_labourer,job_desp,job_required);
+        EmployerRequirementHelper helperClass = new EmployerRequirementHelper(no_days,no_labourer,job_desp,job_required);
         reference.child(userid).setValue(helperClass);
         DatabaseReference reference1 = rootNode.getReference("Employer_Work_History");
         Date currentTime = Calendar.getInstance().getTime();

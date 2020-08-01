@@ -2,7 +2,7 @@ package com.example.android.hrm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Employer  {
+public class EmployerRegistrationHelper {
 
     String empname;
     String empnumber;
@@ -23,7 +23,7 @@ public class Employer  {
         return empaddress;
     }
 
-    public Employer(String empname, String empnumber, String empaddress) {
+    public EmployerRegistrationHelper(String empname, String empnumber, String empaddress) {
         this.empname = empname;
         this.empnumber = empnumber;
         this.empaddress = empaddress;

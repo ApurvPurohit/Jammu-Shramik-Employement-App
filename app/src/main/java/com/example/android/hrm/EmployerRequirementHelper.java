@@ -1,12 +1,12 @@
 package com.example.android.hrm;
 
-public class Employer_requirement_send {
+public class EmployerRequirementHelper {
     String ndays;
     String nlab;
     String job_desp;
     String job;
 
-    public Employer_requirement_send(){
+    public EmployerRequirementHelper(){
     }
     public String getNdays() {
         return ndays;
@@ -24,7 +24,7 @@ public class Employer_requirement_send {
         return job;
     }
 
-    public Employer_requirement_send(String ndays, String nlab, String job_desp, String job) {
+    public EmployerRequirementHelper(String ndays, String nlab, String job_desp, String job) {
         this.ndays = ndays;
         this.nlab = nlab;
         this.job_desp = job_desp;
