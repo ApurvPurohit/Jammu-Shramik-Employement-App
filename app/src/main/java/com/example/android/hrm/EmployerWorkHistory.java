@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,11 +32,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class EmployerWorkHistory extends AppCompatActivity {
+    ProgressBar s1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history);
+        s1 = findViewById(R.id.progressBar3);
+        s1.setVisibility(View.VISIBLE);
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("Employer_Work_History");
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
@@ -44,6 +49,7 @@ public class EmployerWorkHistory extends AppCompatActivity {
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                s1.setVisibility(View.GONE);
                 if (snapshot.exists()) {
                     final TextView[] tv = new TextView[(Integer.parseInt(String.valueOf(snapshot.getChildrenCount())))];
                     int k = 0;

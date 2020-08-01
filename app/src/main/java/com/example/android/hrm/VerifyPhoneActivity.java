@@ -66,8 +66,12 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void verifyCode(String code) {
         progressBar.setVisibility(View.VISIBLE);
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-        signInWithCredential(credential);
+        try {PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+        signInWithCredential(credential);} catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(),Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     private void signInWithCredential(PhoneAuthCredential credential) {

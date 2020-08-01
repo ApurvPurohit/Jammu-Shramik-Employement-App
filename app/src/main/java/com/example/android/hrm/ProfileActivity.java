@@ -85,6 +85,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),EmployerWorkHistory.class));
+//                startActivity(new Intent(getApplicationContext(),EmployerWorkHistory.class));
             }
         });
         findViewById(R.id.buttonLogout).setOnClickListener(new View.OnClickListener() {
