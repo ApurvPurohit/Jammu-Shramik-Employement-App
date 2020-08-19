@@ -60,6 +60,7 @@ public class EmployerRegistration extends AppCompatActivity {
                     i.putExtra("phone",phone);
                     i.putExtra("occ",adr);
                     i.putExtra("stat","नियोक्ता");
+                    i.putExtra("available","1");
                     startActivity(i);
                 }
             }

@@ -83,6 +83,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             isUser();
                         } else {
+                            progressBar.setVisibility(View.GONE);
                             Toast.makeText(VerifyPhoneActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
@@ -105,6 +106,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                         String nameDB = snapshot.child("empname").getValue(String.class);
                         String phoneDB = snapshot.child("empnumber").getValue(String.class);
                         String genDB = snapshot.child("empaddress").getValue(String.class);
+
                         Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         i.putExtra("name",nameDB);
@@ -127,6 +129,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                                     String genDB = snapshot.child("gen").getValue(String.class);
                                     String occDB = snapshot.child("occ").getValue(String.class);
                                     String expDB = snapshot.child("exp").getValue(String.class);
+                                    String availDB = snapshot.child("status").getValue(String.class);
                                     Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     intent.putExtra("name",nameDB);
@@ -135,10 +138,12 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                                     intent.putExtra("occ",occDB);
                                     intent.putExtra("exp",expDB);
                                     intent.putExtra("stat","कर्मचारी");
+                                    intent.putExtra("available",availDB);
                                     startActivity(intent);
                                 }
                                 else
                                 {
+                                    progressBar.setVisibility(View.GONE);
                                     Intent intent = new Intent(VerifyPhoneActivity.this, TradeSelector.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);

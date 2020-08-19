@@ -1,15 +1,24 @@
 package com.example.android.hrm;
 public class EmployeeHelperClass {
-    String Name, Phone, gen, occ, exp;
+    String Name, Phone, gen, occ, exp, status;
 
     public EmployeeHelperClass() {
     }
-    public EmployeeHelperClass(String name, String phone, String gen, String occ, String exp) {
+    public EmployeeHelperClass(String name, String phone, String gen, String occ, String exp, String s) {
         Name = name;
         Phone = phone;
         this.gen = gen;
         this.occ = occ;
         this.exp = exp;
+        this.status = s;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getName() {

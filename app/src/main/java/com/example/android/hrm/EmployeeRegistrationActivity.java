@@ -94,7 +94,7 @@ public class EmployeeRegistrationActivity extends AppCompatActivity {
                     FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
                     assert user != null;
                     String userid=user.getUid();
-                    EmployeeHelperClass helperClass = new EmployeeHelperClass(Name.getText().toString(),Phone.getText().toString(),gen,occ,exp);
+                    EmployeeHelperClass helperClass = new EmployeeHelperClass(Name.getText().toString(),Phone.getText().toString(),gen,occ,exp,"1");
                     reference.child(userid).setValue(helperClass);
                     Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
                     i.putExtra("name",Name.getText().toString());
@@ -103,6 +103,7 @@ public class EmployeeRegistrationActivity extends AppCompatActivity {
                     i.putExtra("occ",occ);
                     i.putExtra("stat","कर्मचारी");
                     i.putExtra("exp",exp);
+                    i.putExtra("available","1");
                     startActivity(i);
                 }
             }
