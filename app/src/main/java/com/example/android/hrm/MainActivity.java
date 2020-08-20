@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                         String genDB = snapshot.child("gen").getValue(String.class);
                         String occDB = snapshot.child("occ").getValue(String.class);
                         String expDB = snapshot.child("exp").getValue(String.class);
+                        String status = snapshot.child("status").getValue(String.class);
                         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra("name", nameDB);
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("occ", occDB);
                         intent.putExtra("exp", expDB);
                         intent.putExtra("stat", "कर्मचारी");
+                        intent.putExtra("available", status);
                         startActivity(intent);
                         finish();
                     }

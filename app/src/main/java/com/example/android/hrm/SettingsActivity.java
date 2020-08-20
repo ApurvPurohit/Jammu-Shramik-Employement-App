@@ -43,7 +43,7 @@ import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity {
     Button available;
-    TextView curr;
+    TextView curr, textt;
     @Override
     protected void onStart() {
         super.onStart();
@@ -54,6 +54,8 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setiings_activity);
         curr= findViewById(R.id.current);
+        textt = findViewById(R.id.te);
+
         findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,15 +68,19 @@ public class SettingsActivity extends AppCompatActivity {
         });
         available = findViewById(R.id.availability);
         available.setVisibility(View.GONE);
-        String test = getIntent().getStringExtra("available");
-        if (test.equals("1")) {
-            curr.setText("उपलब्ध");
-            curr.setTextColor(Color.parseColor("#1e8449"));
-        } else {
-            curr.setText("अनुपलब्ध");
-            curr.setTextColor(Color.parseColor("#ff5733"));
+        if((getIntent().getStringExtra("stat")).equals("कर्मचारी"))
+        {
+            available.setVisibility(View.VISIBLE);
+            String test = getIntent().getStringExtra("available");
+            if (test.equals("1")) {
+                curr.setText("उपलब्ध");
+                curr.setTextColor(Color.parseColor("#1e8449"));
+            } else {
+                curr.setText("अनुपलब्ध");
+                curr.setTextColor(Color.parseColor("#ff5733"));
+            }
         }
-        if((getIntent().getStringExtra("stat")).equals("कर्मचारी")){available.setVisibility(View.VISIBLE);}
+        else {curr.setVisibility(View.GONE);textt.setVisibility(View.GONE);}
         findViewById(R.id.availability).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
