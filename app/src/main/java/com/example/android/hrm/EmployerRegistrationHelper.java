@@ -10,6 +10,7 @@ public class EmployerRegistrationHelper {
     public void Employer(){
 
     }
+    public EmployerRegistrationHelper(){}
 
     public String getEmpname() {
         return empname;

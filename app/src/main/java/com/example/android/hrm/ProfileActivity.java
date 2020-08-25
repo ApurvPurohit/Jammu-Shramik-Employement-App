@@ -118,6 +118,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(),Employer_requirement.class);
+                i.putExtra("EmployerName",getIntent().getStringExtra("name"));
+                i.putExtra("EmployerPhone",getIntent().getStringExtra("phone"));
                 i.putExtra("addr",(getIntent().getStringExtra("occ")));
                 startActivity(i);
             }
@@ -134,7 +136,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = (new Intent(getApplicationContext(),SettingsActivity.class));
                 i.putExtra("stat",(getIntent().getStringExtra("stat")));
-                i.putExtra("available",getIntent().getStringExtra("available"));
+                i.putExtra("available",true);
                 startActivity(i);
             }
         });

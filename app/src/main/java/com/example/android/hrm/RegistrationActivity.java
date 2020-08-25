@@ -94,7 +94,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
                     assert user != null;
                     String userid=user.getUid();
-                    EmployeeHelperClass helperClass = new EmployeeHelperClass(Name.getText().toString(),Phone.getText().toString(),gen,occ,exp);
+                    EmployeeHelperClass helperClass = new EmployeeHelperClass(Name.getText().toString(),Phone.getText().toString(),gen,occ,exp,true);
                     reference.child(userid).setValue(helperClass);
                     Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
                     i.putExtra("name",Name.getText().toString());

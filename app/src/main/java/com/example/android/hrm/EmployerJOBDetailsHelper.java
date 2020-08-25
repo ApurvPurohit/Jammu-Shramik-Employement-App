@@ -6,9 +6,34 @@ public class EmployerJOBDetailsHelper {
     String desp;
     String name;
     String phn;
+    String date;
     public EmployerJOBDetailsHelper(){
 
     }
+    public String getNdays() {
+        return ndays;
+    }
+
+    public String getNlab() {
+        return nlab;
+    }
+
+    public String getDesp() {
+        return desp;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhn() {
+        return phn;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
     public void setNdays(String ndays) {
         this.ndays = ndays;
     }
@@ -29,31 +54,17 @@ public class EmployerJOBDetailsHelper {
         this.phn = phn;
     }
 
-    public String getNdays() {
-        return ndays;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getNlab() {
-        return nlab;
-    }
-
-    public String getDesp() {
-        return desp;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public String getPhn() {
-        return phn;
-    }
-
-    public EmployerJOBDetailsHelper(String ndays, String nlab, String desp, String name, String phn) {
+    public EmployerJOBDetailsHelper(String ndays, String nlab, String desp, String name, String phn, String date) {
         this.ndays = ndays;
         this.nlab = nlab;
         this.desp = desp;
         this.name=name;
         this.phn=phn;
+        this.date=date;
     }
 }
 

@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,7 +45,6 @@ public class Employer_requirement extends AppCompatActivity {
     EditText number_days,number_labourer,job_description,dummy;
     FirebaseDatabase rootNode,j;
     DatabaseReference reference;
-    long maxid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +56,8 @@ public class Employer_requirement extends AppCompatActivity {
         dummy.setText(getIntent().getStringExtra("addr"));
         create_work= findViewById(R.id.create_work);
         job= findViewById(R.id.spinner_employer_need);
-        String Name= getIntent().getStringExtra("EmployerName");
-        String Phn = getIntent().getStringExtra("EmployerPhone");
+        String n= getIntent().getStringExtra("EmployerName");
+        String p = getIntent().getStringExtra("EmployerPhone");
         findViewById(R.id.button222).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,22 +152,26 @@ public class Employer_requirement extends AppCompatActivity {
         String no_labourer=number_labourer.getText().toString();
         String job_desp=job_description.getText().toString();
         String n=getIntent().getStringExtra("EmployerName");
-        String p=getIntent().getStringExtra("EmployerPhone");;
+        String p=getIntent().getStringExtra("EmployerPhone");
+        Calendar currenttime=Calendar.getInstance();
+        String date= DateFormat.getDateInstance().format(currenttime.getTime());
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("Employer_Work");
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         assert user != null;
         String userid=user.getUid();
-        EmployerRequirementHelper helperClass = new EmployerRequirementHelper(no_days,no_labourer,job_desp,job_required);
+        EmployerRequirementHelper helperClass = new EmployerRequirementHelper(no_days,no_labourer,job_desp,job_required,date);
         reference.child(userid).setValue(helperClass);
         DatabaseReference reference1 = rootNode.getReference("Employer_Work_History");
         Date currentTime = Calendar.getInstance().getTime();
         reference1.child(userid).child(userid+currentTime.toString()).setValue(helperClass);
+
         Toast.makeText(this, "काम सफलतापूर्वक दर्ज किया गया", Toast.LENGTH_LONG).show();
         j=FirebaseDatabase.getInstance();
         DatabaseReference reff=j.getReference("job");
-        EmployerJOBDetailsHelper hclas=new EmployerJOBDetailsHelper(no_days,no_labourer,job_desp,n,p);
+        EmployerJOBDetailsHelper hclas=new EmployerJOBDetailsHelper(no_days,no_labourer,job_desp,n,p,date);
         reff.child(job_required).child(userid+currentTime.toString()).setValue(hclas);
+
     }
 
 

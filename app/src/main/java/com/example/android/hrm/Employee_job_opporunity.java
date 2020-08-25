@@ -1,8 +1,10 @@
 package com.example.android.hrm;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,22 +18,34 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Employee_job_opporunity extends AppCompatActivity {
     String need;
+    TextView date_view;
     ProgressBar s;
+    Date employer_posting=null,current=null;
+    @SuppressLint("SimpleDateFormat")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.employee_display_job_opportunity);
         s=findViewById(R.id.progressBar4);
         s.setVisibility(View.VISIBLE);
+        date_view=findViewById(R.id.text_date);
         need = getIntent().getStringExtra("occ");
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("job");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Calendar currenttime=Calendar.getInstance();
+        String date= DateFormat.getDateInstance().format(currenttime.getTime());
+        date_view.setText(date);
         //assert user != null;
         //String userid = user.getUid();
         //Query checkUser = reference.child(userid);
@@ -45,19 +59,19 @@ public class Employee_job_opporunity extends AppCompatActivity {
                     final LinearLayout rl = findViewById(R.id.linear_layout2);
                     for (DataSnapshot data : snapshot.getChildren()) {
                         EmployerJOBDetailsHelper user = data.getValue(EmployerJOBDetailsHelper.class);
-                        tv[k] = new TextView(getApplicationContext());
                         assert user != null;
-                        tv[k].setText((t++) +"\nनियोक्ता का फोननंबर:" + user.getPhn()+ "\nनियोक्ता का नाम: " + user.getName()+ "\nविवरण: " + user.getDesp() + "\nश्रमिकों की संख्या: " + user.getNlab() + "\nदिनों की संख्या: " + user.getNdays());
-                        tv[k].setTextSize((float) 20);
-                        tv[k].setBackgroundColor(Color.parseColor("#f8fcee"));
-                        tv[k].setPadding(20, 20, 20, 20);
-                        rl.addView(tv[k]);
-                        TextView border = new TextView(getApplicationContext());
-                        border.setText("\n");
-                        border.setBackgroundColor(Color.parseColor("#4FB5E6"));
-                        rl.addView(border);
-                        k++;
-                        s.setVisibility(View.GONE);
+                            tv[k] = new TextView(getApplicationContext());
+                            tv[k].setText((t++) +"\nनियोक्ता का फोननंबर:" + user.getPhn()+ "\nनियोक्ता का नाम: " + user.getName()+ "\nविवरण: " + user.getDesp() + "\nश्रमिकों की संख्या: " + user.getNlab() + "\nदिनों की संख्या: " + user.getNdays()+"\ndates of posting " + user.getDate());
+                            tv[k].setTextSize((float) 20);
+                            tv[k].setBackgroundColor(Color.parseColor("#f8fcee"));
+                            tv[k].setPadding(20, 20, 20, 20);
+                            rl.addView(tv[k]);
+                            TextView border = new TextView(getApplicationContext());
+                            border.setText("\n");
+                            border.setBackgroundColor(Color.parseColor("#4FB5E6"));
+                            rl.addView(border);
+                            k++;
+                            s.setVisibility(View.GONE);
                     }
                 } else {
                     final LinearLayout rl = findViewById(R.id.linear_layout2);

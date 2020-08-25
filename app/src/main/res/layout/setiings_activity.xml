@@ -30,6 +30,7 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
@@ -76,29 +77,82 @@
                     tools:layout_editor_absoluteX="158dp"
                     tools:layout_editor_absoluteY="85dp" />
             </LinearLayout>
-            <Button
-                android:id="@+id/availability"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_event_available_black_24dp"
-                android:text="उपलब्धता की स्थिति बदलें" />
 
-            <Button
-                android:id="@+id/editdetails"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
-                android:text="उपयोगकर्ता जानकारी बदलें" />
+                android:layout_height="35sp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#B7FFFFFF"
+                android:layout_gravity="center">
 
-            <Button
-                android:id="@+id/logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_exit_to_app_black_24dp"
-                android:text="लॉग आउट" />
+                <TextView
+                    android:layout_width="319dp"
+                    android:layout_height="35sp"
+                    android:layout_marginLeft="5sp"
+                    android:drawableLeft="@drawable/ic_event_available_black_24dp"
+                    android:text="उपलब्धता की स्थिति बदलें"
+                    android:drawablePadding="10sp"
+                    android:layout_gravity="clip_horizontal"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+
+                <Switch
+                    android:id="@+id/switch1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5dp"
+                    android:background="#F4E24A"
+                    android:checked="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="35sp"
+        android:background="#B7FFFFFF"
+        android:layout_marginRight="5sp"
+        android:layout_marginLeft="5sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="5sp"
+        android:drawableLeft="@drawable/ic_exit_to_app_black_24dp"
+        android:drawablePadding="10sp"
+        android:gravity="left|center_vertical"
+        android:text="लॉग आउट"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="308dp"
+        app:layout_constraintTop_toBottomOf="@id/scrollView3"/>
+
+    <Button
+        android:id="@+id/editdetails"
+        android:layout_width="match_parent"
+        android:layout_height="35sp"
+        android:layout_marginRight="5sp"
+        android:layout_marginLeft="5sp"
+        android:layout_marginTop="5sp"
+        android:background="#B7FFFFFF"
+        android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
+        android:drawablePadding="10sp"
+        android:gravity="left|center_vertical"
+        android:text="उपयोगकर्ता जानकारी बदलें"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="228dp"
+        app:layout_constraintTop_toBottomOf="@+id/logout"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,25 +1,19 @@
 package com.example.android.hrm;
 public class EmployeeHelperClass {
-    String Name, Phone, gen, occ, exp, status;
+    String Name, Phone, gen, occ, exp;
+    boolean avail;
 
     public EmployeeHelperClass() {
     }
-    public EmployeeHelperClass(String name, String phone, String gen, String occ, String exp, String s) {
-        Name = name;
-        Phone = phone;
+    public EmployeeHelperClass(String name, String phone, String gen, String occ, String exp, boolean avail) {
+        this.Name = name;
+        this.Phone = phone;
         this.gen = gen;
         this.occ = occ;
         this.exp = exp;
-        this.status = s;
+        this.avail=avail;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public String getName() {
         return Name;
@@ -59,5 +53,13 @@ public class EmployeeHelperClass {
 
     public void setExp(String exp) {
         this.exp = exp;
+    }
+
+    public void setAvail(boolean avail) {
+        this.avail = avail;
+    }
+
+    public boolean isAvail() {
+        return avail;
     }
 }
