@@ -28,7 +28,6 @@ import java.util.Date;
 
 public class Employee_job_opporunity extends AppCompatActivity {
     String need;
-    TextView date_view;
     ProgressBar s;
     Date employer_posting=null,current=null;
     @SuppressLint("SimpleDateFormat")
@@ -38,14 +37,12 @@ public class Employee_job_opporunity extends AppCompatActivity {
         setContentView(R.layout.employee_display_job_opportunity);
         s=findViewById(R.id.progressBar4);
         s.setVisibility(View.VISIBLE);
-        date_view=findViewById(R.id.text_date);
         need = getIntent().getStringExtra("occ");
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("job");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Calendar currenttime=Calendar.getInstance();
         String date= DateFormat.getDateInstance().format(currenttime.getTime());
-        date_view.setText(date);
         //assert user != null;
         //String userid = user.getUid();
         //Query checkUser = reference.child(userid);
@@ -61,7 +58,8 @@ public class Employee_job_opporunity extends AppCompatActivity {
                         EmployerJOBDetailsHelper user = data.getValue(EmployerJOBDetailsHelper.class);
                         assert user != null;
                             tv[k] = new TextView(getApplicationContext());
-                            tv[k].setText((t++) +"\nनियोक्ता का फोननंबर:" + user.getPhn()+ "\nनियोक्ता का नाम: " + user.getName()+ "\nविवरण: " + user.getDesp() + "\nश्रमिकों की संख्या: " + user.getNlab() + "\nदिनों की संख्या: " + user.getNdays()+"\ndates of posting " + user.getDate());
+                            tv[k].setText((t++) +"\nनियोक्ता का फोननंबर:" + user.getPhn()+ "\nनियोक्ता का नाम: " + user.getName()+ "\nविवरण: " + user.getDesp() + "\nश्रमिकों की संख्या: " + user.getNlab() + "\nदिनों की संख्या: " + user.getNdays()+"\n" +
+                                    "तारीख: " + user.getF_date()+"-"+user.getT_date());
                             tv[k].setTextSize((float) 20);
                             tv[k].setBackgroundColor(Color.parseColor("#f8fcee"));
                             tv[k].setPadding(20, 20, 20, 20);

@@ -5,17 +5,26 @@ public class EmployerRequirementHelper {
     String nlab;
     String job_desp;
     String job;
-    String date;
+    String t_date;
+    String f_date;
 
     public EmployerRequirementHelper(){
     }
 
-    public String getDate() {
-        return date;
+    public void setT_date(String t_date) {
+        this.t_date = t_date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setF_date(String f_date) {
+        this.f_date = f_date;
+    }
+
+    public String getT_date() {
+        return t_date;
+    }
+
+    public String getF_date() {
+        return f_date;
     }
 
     public String getNdays() {
@@ -34,11 +43,12 @@ public class EmployerRequirementHelper {
         return job;
     }
 
-    public EmployerRequirementHelper(String ndays, String nlab, String job_desp, String job,String date) {
+    public EmployerRequirementHelper(String ndays, String nlab, String job_desp, String job,String t_date,String f_date) {
         this.ndays = ndays;
         this.nlab = nlab;
         this.job_desp = job_desp;
         this.job = job;
-        this.date=date;
+        this.t_date=t_date;
+        this.f_date=f_date;
     }
 }
