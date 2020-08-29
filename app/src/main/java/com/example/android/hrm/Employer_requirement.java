@@ -1,14 +1,24 @@
 package com.example.android.hrm;
 
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
@@ -22,6 +32,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ViewHolder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,10 +43,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Employer_requirement extends AppCompatActivity {
-    Button create_work;
+    Button create_work,date,date2;
     Spinner job;
+    TextView till,from;
+    DatePickerDialog.OnDateSetListener setListener_till,setListener_from;
     final private String FCM_API = "https://fcm.googleapis.com/fcm/send";
     final private String serverKey = "key=" + "AAAAv1HH8GU:APA91bGf3Xv_L8vj0AzoRkrfXr4CzTX5sc6MyGfDp9CWEeLbFF1QIYpY8lYRFik6AsaHdp8lrjL-QCcK-tUU0rrq8nHK7DFT6fsLlDvVbbmEFQW-5bxO33ix_lQwhqGbVZtXwQYyj55m";
     final private String contentType = "application/json";
@@ -55,7 +70,16 @@ public class Employer_requirement extends AppCompatActivity {
         dummy = findViewById(R.id.address);
         dummy.setText(getIntent().getStringExtra("addr"));
         create_work= findViewById(R.id.create_work);
+        date=findViewById(R.id.till_date);
+        date2=findViewById(R.id.from_date);
         job= findViewById(R.id.spinner_employer_need);
+        till=findViewById(R.id.textView13);
+        from=findViewById(R.id.textView14);
+        Calendar calendar =Calendar.getInstance();
+        final int year=calendar.get(Calendar.YEAR);
+        final int month=calendar.get(Calendar.MONTH);
+        final int day=calendar.get(Calendar.DAY_OF_MONTH);
+
         String n= getIntent().getStringExtra("EmployerName");
         String p = getIntent().getStringExtra("EmployerPhone");
         findViewById(R.id.button222).setOnClickListener(new View.OnClickListener() {
@@ -64,6 +88,39 @@ public class Employer_requirement extends AppCompatActivity {
                 finish();
             }
         });
+        date.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                DatePickerDialog dialog =  new DatePickerDialog(Employer_requirement.this,android.R.style.Theme_Holo_Dialog,setListener_till,year,month,day);
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable());
+                dialog.show();
+            }
+        });
+        date2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                DatePickerDialog dialog =  new DatePickerDialog(Employer_requirement.this,android.R.style.Theme_Holo_Dialog,setListener_from,year,month,day);
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable());
+                dialog.show();
+            }
+        });
+        setListener_till =new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                month=month+1;
+                String d=day+"/"+month+"/"+year;
+                till.setText(d);
+            }
+        };
+        setListener_from =new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                month=month+1;
+                String d=day+"/"+month+"/"+year;
+                from.setText(d);
+            }
+        };
+
         create_work.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vi) {
@@ -151,6 +208,8 @@ public class Employer_requirement extends AppCompatActivity {
         String no_days=number_days.getText().toString();
         String no_labourer=number_labourer.getText().toString();
         String job_desp=job_description.getText().toString();
+        String t_date=till.getText().toString();
+        String f_date=from.getText().toString();
         String n=getIntent().getStringExtra("EmployerName");
         String p=getIntent().getStringExtra("EmployerPhone");
         Calendar currenttime=Calendar.getInstance();
@@ -160,7 +219,7 @@ public class Employer_requirement extends AppCompatActivity {
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         assert user != null;
         String userid=user.getUid();
-        EmployerRequirementHelper helperClass = new EmployerRequirementHelper(no_days,no_labourer,job_desp,job_required,date);
+        EmployerRequirementHelper helperClass = new EmployerRequirementHelper(no_days,no_labourer,job_desp,job_required,t_date,f_date);
         reference.child(userid).setValue(helperClass);
         DatabaseReference reference1 = rootNode.getReference("Employer_Work_History");
         Date currentTime = Calendar.getInstance().getTime();
@@ -169,7 +228,7 @@ public class Employer_requirement extends AppCompatActivity {
         Toast.makeText(this, "काम सफलतापूर्वक दर्ज किया गया", Toast.LENGTH_LONG).show();
         j=FirebaseDatabase.getInstance();
         DatabaseReference reff=j.getReference("job");
-        EmployerJOBDetailsHelper hclas=new EmployerJOBDetailsHelper(no_days,no_labourer,job_desp,n,p,date);
+        EmployerJOBDetailsHelper hclas=new EmployerJOBDetailsHelper(no_days,no_labourer,job_desp,n,p,t_date,f_date);
         reff.child(job_required).child(userid+currentTime.toString()).setValue(hclas);
 
     }

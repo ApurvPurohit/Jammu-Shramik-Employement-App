@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="10sp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="12dp"
         android:background="#FB8C00"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="कार्य जोड़ें"
@@ -64,16 +64,16 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="193dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
         android:hint="कार्य विवरण लिखें"
         android:inputType="textMultiLine"
         android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/address" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/number_of_days"
@@ -111,15 +111,17 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="0sp"
-        android:layout_marginTop="0dp"
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:text="आवश्यक जानकारी भरें"
         android:textColor="#FBFDFD"
         android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <Button
@@ -130,7 +132,7 @@
         android:layout_marginLeft="161dp"
         android:layout_marginEnd="141dp"
         android:layout_marginRight="141dp"
-        android:layout_marginBottom="85dp"
+        android:layout_marginBottom="44dp"
         android:background="#FB8C00"
         android:drawableLeft="@drawable/ic_arrow_back_black_24dp"
         android:fontFamily="sans-serif-condensed-medium"
@@ -140,5 +142,56 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_work" />
+
+    <Button
+        android:id="@+id/till_date"
+        android:layout_width="120sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:text="इस तारीख तक"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/from_date" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_edittext"
+        android:padding="10dp"
+        android:text="कृपया तारीख चुनें"
+        android:textColor="@color/HRMcolor"
+        app:layout_constraintEnd_toStartOf="@+id/from_date"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:padding="10dp"
+        android:text="कृपया तारीख चुनें"
+        android:textColor="@color/HRMcolor"
+        android:background="@drawable/rounded_edittext"
+        app:layout_constraintEnd_toStartOf="@+id/from_date"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address" />
+
+    <Button
+        android:id="@+id/from_date"
+        android:layout_width="120sp"
+        android:layout_height="wrap_content"
+        android:text="इस तारीख से"
+        app:layout_constraintBottom_toBottomOf="@+id/textView14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView14" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,10 +6,20 @@ public class EmployerJOBDetailsHelper {
     String desp;
     String name;
     String phn;
-    String date;
+    String t_date;
+    String f_date;
     public EmployerJOBDetailsHelper(){
 
     }
+
+    public String getT_date() {
+        return t_date;
+    }
+
+    public String getF_date() {
+        return f_date;
+    }
+
     public String getNdays() {
         return ndays;
     }
@@ -30,8 +40,13 @@ public class EmployerJOBDetailsHelper {
         return phn;
     }
 
-    public String getDate() {
-        return date;
+
+    public void setT_date(String t_date) {
+        this.t_date = t_date;
+    }
+
+    public void setF_date(String f_date) {
+        this.f_date = f_date;
     }
 
     public void setNdays(String ndays) {
@@ -54,17 +69,16 @@ public class EmployerJOBDetailsHelper {
         this.phn = phn;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
 
-    public EmployerJOBDetailsHelper(String ndays, String nlab, String desp, String name, String phn, String date) {
+
+    public EmployerJOBDetailsHelper(String ndays, String nlab, String desp, String name, String phn, String t_date,String f_date) {
         this.ndays = ndays;
         this.nlab = nlab;
         this.desp = desp;
         this.name=name;
         this.phn=phn;
-        this.date=date;
+        this.t_date=t_date;
+        this.f_date=f_date;
     }
 }
 

@@ -267,7 +267,6 @@ public class ProfileActivity extends AppCompatActivity {
         builder.show();
 
     }
-
     // navigating user to app settings
     private void openSettings() {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
