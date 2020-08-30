@@ -50,7 +50,7 @@ public class RegistrationActivity extends AppCompatActivity {
         {
             @Override
             public void onClick(View v) {
-                if(Name.getText()==null)
+                if(Name.getText().length()==0)
                 {
                     Toast.makeText(getApplicationContext(), "नाम आवश्यक है", Toast.LENGTH_SHORT).show();
                     Name.requestFocus();

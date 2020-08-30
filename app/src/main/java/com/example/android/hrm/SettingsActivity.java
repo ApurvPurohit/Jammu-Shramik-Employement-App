@@ -77,7 +77,7 @@ public class SettingsActivity extends AppCompatActivity {
                 curr.setTextColor(Color.parseColor("#1e8449"));
             } else {
                 curr.setText("अनुपलब्ध");
-                curr.setTextColor(Color.parseColor("#ff5733"));
+                curr.setTextColor(Color.parseColor("#1e8449"));
             }
         }
         else {curr.setVisibility(View.GONE);textt.setVisibility(View.GONE);}
@@ -100,7 +100,7 @@ public class SettingsActivity extends AppCompatActivity {
                             String t = snapshot.child("status").getValue(String.class);
                             if (t.equals("1")) {
                                 curr.setText("अनुपलब्ध");
-                                curr.setTextColor(Color.parseColor("#ff5733"));
+                                curr.setTextColor(Color.parseColor("#1e8449"));
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("emp").child(userid);
                                 reference.child("status").setValue("0");
                             } else {
