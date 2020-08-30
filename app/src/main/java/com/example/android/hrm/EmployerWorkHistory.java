@@ -44,9 +44,10 @@ public class EmployerWorkHistory extends AppCompatActivity {
                     final LinearLayout rl = findViewById(R.id.linear_layout);
                     for (DataSnapshot data : snapshot.getChildren()) {
                         EmployerRequirementHelper user = data.getValue(EmployerRequirementHelper.class);
+                        String nameDB = data.child("Dated").getValue(String.class);
                         tv[k] = new TextView(getApplicationContext());
                         assert user != null;
-                        tv[k].setText((t++)+".\nकाम: " + user.getJob() + "\nविवरण: " + user.getJob_desp() + "\nश्रमिकों की संख्या: " + user.getNlab() + "\nदिनों की संख्या: " + user.getNdays());
+                        tv[k].setText((t++)+". "+nameDB+"\nकाम: " + user.getJob() + "\nविवरण: " + user.getJob_desp() + "\nश्रमिकों की संख्या: " + user.getNlab() + "\nदिनों की संख्या: " + user.getNdays());
                         tv[k].setTextSize((float) 20);
                         tv[k].setBackgroundColor(Color.parseColor("#f8fcee"));
                         tv[k].setPadding(20, 20, 20, 20);

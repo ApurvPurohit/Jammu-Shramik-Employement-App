@@ -2,6 +2,7 @@ package com.example.android.hrm;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +25,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +35,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -40,6 +48,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -48,6 +57,8 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     public static final int REQUEST_IMAGE = 100;
     Button some_work, hist,j;
+    private StorageReference mStorageRef;
+    Uri filePath;
 
     @Override
     protected void onStart() {
@@ -78,26 +89,18 @@ public class ProfileActivity extends AppCompatActivity {
         if(user != null)
         {
             String userid=user.getUid();
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("profilepicsb64");
-            Query checkUser = reference.child(userid);
-            checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            mStorageRef = FirebaseStorage.getInstance().getReference();
+            mStorageRef.child("images/"+userid).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()) {
-                        String B64 = snapshot.getValue(String.class);
-                        byte[] decodedString = Base64.decode(B64, Base64.DEFAULT);
-                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        profilepic.setImageBitmap(decodedByte);
-                        profilepic.setVisibility(View.VISIBLE);
-                    }
-                    else
-                    {
-                        profilepic.setImageResource(R.drawable.ic_add_a_photo_black_24dp);
-                        profilepic.setVisibility(View.VISIBLE);
-                    }
+                public void onSuccess(Uri uri) {
+                    loadProfile(uri.toString());
+                    profilepic.setVisibility(View.VISIBLE);
                 }
+            }).addOnFailureListener(new OnFailureListener() {
                 @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                public void onFailure(@NonNull Exception e) {
+                    profilepic.setVisibility(View.VISIBLE);
+                    profilepic.setImageResource(R.drawable.ic_add_a_photo_black_24dp);
                 }
             });
         }
@@ -119,6 +122,8 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(),Employer_requirement.class);
                 i.putExtra("addr",(getIntent().getStringExtra("occ")));
+                i.putExtra("EmployerName",(getIntent().getStringExtra("name")));
+                i.putExtra("EmployerPhone",(getIntent().getStringExtra("phone")));
                 startActivity(i);
             }
         });
@@ -224,23 +229,13 @@ public class ProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
-                Uri uri = data.getParcelableExtra("path");
+                filePath = data.getParcelableExtra("path");
                 try {
                     // You can update this bitmap to your server
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                    byte[] byteArray = byteArrayOutputStream .toByteArray();
-                    String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                    FirebaseDatabase db=FirebaseDatabase.getInstance();
-                    DatabaseReference databaseReference;
-                    databaseReference =db.getReference("profilepicsb64");
-                    FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-                    assert user != null;
-                    String userid = user.getUid();
-                    databaseReference.child(userid).setValue(encoded);
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), filePath);
                     // loading profile image from local cache
-                    loadProfile(uri.toString());
+                    uploadImage();
+                    loadProfile(filePath.toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -248,12 +243,78 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Showing Alert Dialog with Settings option
-     * Navigates user to app settings
-     * NOTE: Keep proper title and message depending on your app
-     */
-    private void showSettingsDialog() {
+    private void uploadImage() {
+        if (filePath != null) {
+
+            // Code for showing progressDialog while uploading
+            ProgressDialog progressDialog
+                    = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            // Defining the child of storageReference
+            mStorageRef = FirebaseStorage.getInstance().getReference();
+            FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+            StorageReference ref
+                    = mStorageRef
+                    .child(
+                            "images/"
+                                    + user.getUid());
+
+            // adding listeners on upload
+            // or failure of image
+            ref.putFile(filePath)
+                    .addOnSuccessListener(
+                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                                @Override
+                                public void onSuccess(
+                                        UploadTask.TaskSnapshot taskSnapshot) {
+
+                                    // Image uploaded successfully
+                                    // Dismiss dialog
+                                    progressDialog.dismiss();
+                                    Toast
+                                            .makeText(getApplicationContext(),
+                                                    "Image Uploaded!!",
+                                                    Toast.LENGTH_SHORT)
+                                            .show();
+                                }
+                            })
+
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            // Error, Image not uploaded
+                            progressDialog.dismiss();
+                            Toast
+                                    .makeText(getApplicationContext(),
+                                            "Failed " + e.getMessage(),
+                                            Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    })
+                    .addOnProgressListener(
+                            new OnProgressListener<UploadTask.TaskSnapshot>() {
+
+                                // Progress Listener for loading
+                                // percentage on the dialog box
+                                @Override
+                                public void onProgress(
+                                        UploadTask.TaskSnapshot taskSnapshot) {
+                                    double progress
+                                            = (100.0
+                                            * taskSnapshot.getBytesTransferred()
+                                            / taskSnapshot.getTotalByteCount());
+                                    progressDialog.setMessage(
+                                            "Uploaded "
+                                                    + (int) progress + "%");
+                                }
+                            });
+        }
+    }
+        private void showSettingsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
         builder.setTitle(getString(R.string.dialog_permission_title));
         builder.setMessage(getString(R.string.dialog_permission_message));

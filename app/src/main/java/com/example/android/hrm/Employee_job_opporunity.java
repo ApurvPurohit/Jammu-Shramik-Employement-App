@@ -19,6 +19,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+
 public class Employee_job_opporunity extends AppCompatActivity {
     String need;
     ProgressBar s;
@@ -27,7 +30,7 @@ public class Employee_job_opporunity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.employee_display_job_opportunity);
         s=findViewById(R.id.progressBar4);
-        s.setVisibility(View.VISIBLE);
+        s.setVisibility(View.GONE);
         need = getIntent().getStringExtra("occ");
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("job");
@@ -39,15 +42,23 @@ public class Employee_job_opporunity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    s.setVisibility(View.VISIBLE);
                     final TextView[] tv = new TextView[(Integer.parseInt(String.valueOf(snapshot.getChildrenCount())))];
                     int k = 0;
                     int t = 1;
+                    int flag=0;
                     final LinearLayout rl = findViewById(R.id.linear_layout2);
                     for (DataSnapshot data : snapshot.getChildren()) {
-                        EmployerJOBDetailsHelper user = data.getValue(EmployerJOBDetailsHelper.class);
+                        String date_posted = data.child("Dated").getValue(String.class);
+                        Calendar currenttime=Calendar.getInstance();
+                        String date= DateFormat.getDateInstance().format(currenttime.getTime());
+                        if(date.equalsIgnoreCase(date_posted))
+                        {
+                            flag=1;
+                            EmployerJOBDetailsHelper user = data.getValue(EmployerJOBDetailsHelper.class);
                         tv[k] = new TextView(getApplicationContext());
                         assert user != null;
-                        tv[k].setText((t++) +"\nनियोक्ता का फोननंबर:" + user.getPhn()+ "\nनियोक्ता का नाम: " + user.getName()+ "\nविवरण: " + user.getDesp() + "\nश्रमिकों की संख्या: " + user.getNlab() + "\nदिनों की संख्या: " + user.getNdays());
+                        tv[k].setText((t++) +". "+date+"\nनियोक्ता का फोननंबर: " + user.getPhn()+ "\nनियोक्ता का नाम: " + user.getName()+ "\nविवरण: " + user.getDesp() + "\nश्रमिकों की संख्या: " + user.getNlab() + "\nदिनों की संख्या: " + user.getNdays());
                         tv[k].setTextSize((float) 20);
                         tv[k].setBackgroundColor(Color.parseColor("#f8fcee"));
                         tv[k].setPadding(20, 20, 20, 20);
@@ -57,9 +68,20 @@ public class Employee_job_opporunity extends AppCompatActivity {
                         border.setBackgroundColor(Color.parseColor("#4FB5E6"));
                         rl.addView(border);
                         k++;
+                        s.setVisibility(View.GONE);}
+                    }
+                    if(flag==0)
+                    {
                         s.setVisibility(View.GONE);
+                        final LinearLayout rll = findViewById(R.id.linear_layout2);
+                        TextView tvv = new TextView(getApplicationContext());
+                        tvv.setText("\n" + "नया रोजगार अवसर खोजने में विफल रहा");
+                        tvv.setTextSize((float) 20);
+                        tvv.setPadding(20, 20, 20, 20);
+                        rll.addView(tvv);
                     }
                 } else {
+                    s.setVisibility(View.GONE);
                     final LinearLayout rl = findViewById(R.id.linear_layout2);
                     TextView tv = new TextView(getApplicationContext());
                     tv.setText("\n" + "नया रोजगार अवसर खोजने में विफल रहा");

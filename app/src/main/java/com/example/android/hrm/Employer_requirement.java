@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -160,14 +161,19 @@ public class Employer_requirement extends AppCompatActivity {
         String userid=user.getUid();
         EmployerRequirementHelper helperClass = new EmployerRequirementHelper(no_days,no_labourer,job_desp,job_required);
         reference.child(userid).setValue(helperClass);
+        Calendar currenttime=Calendar.getInstance();
+        String date= DateFormat.getDateInstance().format(currenttime.getTime());
+        reference.child(userid).child("Dated").setValue(date);
         DatabaseReference reference1 = rootNode.getReference("Employer_Work_History");
         Date currentTime = Calendar.getInstance().getTime();
         reference1.child(userid).child(userid+currentTime.toString()).setValue(helperClass);
+        reference1.child(userid).child(userid+currentTime.toString()).child("Dated").setValue(date);
         Toast.makeText(this, "काम सफलतापूर्वक दर्ज किया गया", Toast.LENGTH_LONG).show();
         j=FirebaseDatabase.getInstance();
         DatabaseReference reff=j.getReference("job");
         EmployerJOBDetailsHelper hclas=new EmployerJOBDetailsHelper(no_days,no_labourer,job_desp,n,p);
         reff.child(job_required).child(userid+currentTime.toString()).setValue(hclas);
+        reff.child(job_required).child(userid+currentTime.toString()).child("Dated").setValue(date);
     }
 
 
