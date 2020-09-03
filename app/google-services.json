@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "821710811237",
-    "firebase_url": "https://hrmt-f8dca.firebaseio.com",
-    "project_id": "hrmt-f8dca",
-    "storage_bucket": "hrmt-f8dca.appspot.com"
+    "project_number": "483854481615",
+    "firebase_url": "https://jammu-shramik.firebaseio.com",
+    "project_id": "jammu-shramik",
+    "storage_bucket": "jammu-shramik.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:821710811237:android:4d549b3f47e6ae2c57968c",
+        "mobilesdk_app_id": "1:483854481615:android:a5953244d9351532a61fba",
         "android_client_info": {
           "package_name": "com.example.android.hrm"
         }
       },
       "oauth_client": [
         {
-          "client_id": "821710811237-okudp0372s1nqtc0iotd97d3u0pr5fks.apps.googleusercontent.com",
+          "client_id": "483854481615-p6jl5cn2tjgkmgutispa4a25c3f0q12v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.hrm",
+            "certificate_hash": "c7e572798f5a9d0ce5bec22fb95b383731fbf5a6"
+          }
+        },
+        {
+          "client_id": "483854481615-shrhi6r3rl6b165u1904dohqn0m9fcg3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDK1V4S_YDqjHgTBoZjUtIuFjglZxDl_6U"
+          "current_key": "AIzaSyBw1jdCpmthvDePrd9mmtWCnmF9JIWqJwg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "821710811237-okudp0372s1nqtc0iotd97d3u0pr5fks.apps.googleusercontent.com",
+              "client_id": "483854481615-shrhi6r3rl6b165u1904dohqn0m9fcg3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
